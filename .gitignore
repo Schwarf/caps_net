@@ -1,4 +1,7 @@
 # Byte-compiled / optimized / DLL files
+environment_caps_net/
+source/result/
+.idea/
 __pycache__/
 *.py[cod]
 *$py.class
