@@ -22,10 +22,10 @@ class CapsuleLayer(tensorflow.keras.layers.Layer):
         assert len(input_shape) >= 3
         self._number_of_input_capsules = input_shape[1]
         self._dimension_of_input_capsules = input_shape[2]
-        self._weight_matrix = self.add_weight(shape=[self._number_of_capsules, self._number_of_input_capsules,
-                                                     self._dimension_of_capsule, self._dimension_of_input_capsules],
-                                              initializer=self._kernel_initializer,
-                                              name='_weight_matrix')
+        weight_matrix_shape = [self._number_of_capsules, self._number_of_input_capsules, self._dimension_of_capsule,
+                               self._dimension_of_input_capsules]
+        self._weight_matrix = self.add_weight(shape=weight_matrix_shape, initializer=self._kernel_initializer,
+                                              name='weight_matrix', trainable=True)
         self.built = True
 
     def call(self, inputs, training=None):
@@ -57,3 +57,15 @@ class CapsuleLayer(tensorflow.keras.layers.Layer):
                 coupling_coefficients += tensorflow.matmul(output_vectors, inputs_times_weight_matrix, transpose_b=True)
 
         return tensorflow.squeeze(output_vectors)
+
+    def compute_output_shape(self, input_shape):
+        return tuple([None, self._number_of_capsules, self._dimension_of_capsule])
+
+    def get_config(self):
+        config = {
+            'number_of_capsules': self._number_of_capsules,
+            'dimension_of_capsule': self._dimension_of_capsule,
+            'number_of_routings': self._number_of_routings
+        }
+        base_config = super(CapsuleLayer, self).get_config()
+        return dict(list(base_config.items()) + list(config.items()))
