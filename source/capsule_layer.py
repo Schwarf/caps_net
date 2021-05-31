@@ -1,12 +1,12 @@
 import tensorflow
 
-from i_capsule_layer import ICapsuleLayer
+from i_keras_layer_with_weights import IKerasLayerWithWeights
 from squash_activation import SquashActivation
 
 
-class CapsuleLayer(ICapsuleLayer,tensorflow.keras.layers.Layer, object):
+class KerasLayerWithWeights(IKerasLayerWithWeights, tensorflow.keras.layers.Layer, object):
     def __init__(self, number_of_capsules, dimension_of_capsule, number_of_routings):
-        super(CapsuleLayer, self).__init__()
+        super(KerasLayerWithWeights, self).__init__()
         if number_of_capsules < 1:
             raise ValueError(f"The number of capsules must be larger than 0 but is {number_of_capsules}")
         if dimension_of_capsule < 1:
@@ -71,5 +71,5 @@ class CapsuleLayer(ICapsuleLayer,tensorflow.keras.layers.Layer, object):
             'dimension_of_capsule': self._dimension_of_capsule,
             'number_of_routings': self._number_of_routings
         }
-        base_config = super(CapsuleLayer, self).get_config()
+        base_config = super(KerasLayerWithWeights, self).get_config()
         return dict(list(base_config.items()) + list(config.items()))

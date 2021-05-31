@@ -1,11 +1,7 @@
 from pure_interface import Interface, abstractmethod
 
 
-class ICapsuleLayer(Interface):
-    @abstractmethod
-    def build(self, input_shape):
-        pass
-
+class IKerasLayerWithoutWeights(Interface):
     @abstractmethod
     def call(self, inputs, training):
         pass

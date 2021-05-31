@@ -5,8 +5,3 @@ class ICapsuleModel(Interface):
     @abstractmethod
     def model(self):
         pass
-
-    @abstractmethod
-    def length(self, vector):
-        pass
-
