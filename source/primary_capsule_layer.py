@@ -1,8 +1,10 @@
 import tensorflow
+
+from i_primary_capsule_layer import IPrimaryCapsuleLayer
 from squash_activation import SquashActivation
 
 
-class PrimaryCapsuleLayer():
+class PrimaryCapsuleLayer(IPrimaryCapsuleLayer, object):
     def __init__(self, dimension_of_capsule, number_of_channels, kernel_size, strides, padding):
         if dimension_of_capsule is None or dimension_of_capsule < 1:
             raise ValueError(f"The dimension of the capsule must be larger than zero but is '{dimension_of_capsule}'.")

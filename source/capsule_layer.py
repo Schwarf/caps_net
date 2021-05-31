@@ -1,17 +1,21 @@
 import tensorflow
 
+from i_capsule_layer import ICapsuleLayer
 from squash_activation import SquashActivation
 
 
-class CapsuleLayer(tensorflow.keras.layers.Layer):
+class CapsuleLayer(ICapsuleLayer,tensorflow.keras.layers.Layer, object):
     def __init__(self, number_of_capsules, dimension_of_capsule, number_of_routings):
         super(CapsuleLayer, self).__init__()
-        self._number_of_capsules = number_of_capsules
-        self._dimension_of_capsule = dimension_of_capsule
+        if number_of_capsules < 1:
+            raise ValueError(f"The number of capsules must be larger than 0 but is {number_of_capsules}")
+        if dimension_of_capsule < 1:
+            raise ValueError(f"The dimension of a capsule must be larger than 0 but is {dimension_of_capsule}")
         if number_of_routings < 1:
             raise ValueError(f"The number_of_routings must be larger than 0 but is {number_of_routings}")
         self._number_of_routings = number_of_routings
-
+        self._number_of_capsules = number_of_capsules
+        self._dimension_of_capsule = dimension_of_capsule
         self._kernel_initializer = tensorflow.keras.initializers.get('glorot_uniform')
         self._number_of_input_capsules = None
         self._dimension_of_input_capsules = None
