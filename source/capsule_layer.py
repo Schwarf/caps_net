@@ -1,6 +1,6 @@
 import tensorflow
 
-from i_keras_layer_with_weights import IKerasLayerWithWeights
+from i_layer_with_weights import IKerasLayerWithWeights
 from squash_activation import SquashActivation
 
 

@@ -3,7 +3,7 @@ import tensorflow
 from i_caspule_model import ICapsuleModel
 from primary_capsule_layer import PrimaryCapsuleLayer
 from capsule_layer import KerasLayerWithWeights
-
+from length_layer import LengthLayer
 tensorflow.keras.backend.set_image_data_format("channels_last")
 
 
@@ -21,6 +21,7 @@ class CapsuleModel(ICapsuleModel):
         self._digit_capsule_layer = KerasLayerWithWeights(number_of_capsules=number_of_classes,
                                                           dimension_of_capsule=16,
                                                           number_of_routings=number_of_routings)
+        self._length_layer = LengthLayer()
 
     def model(self):
         input_layer = tensorflow.keras.layers.Input(shape=self._input_shape, batch_size=self._batch_size)
@@ -31,3 +32,4 @@ class CapsuleModel(ICapsuleModel):
         primary_capsule_layer = self._primary_capsule_layer.apply(first_convolutional_layer)
 
         digit_capsule_layer = self._digit_capsule_layer(primary_capsule_layer)
+        length_layer = self._length_layer(digit_capsule_layer)
