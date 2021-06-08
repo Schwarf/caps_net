@@ -1,4 +1,4 @@
-from i_layer_without_weights import IKerasLayerWithoutWeights
+from interfaces.i_layer_without_weights import IKerasLayerWithoutWeights
 import tensorflow
 
 

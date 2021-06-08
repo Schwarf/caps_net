@@ -1,7 +1,7 @@
 import tensorflow
 
-from i_layer_with_weights import IKerasLayerWithWeights
-from squash_activation import SquashActivation
+from interfaces.i_layer_with_weights import IKerasLayerWithWeights
+from implementations.squash_activation import SquashActivation
 
 
 class KerasLayerWithWeights(IKerasLayerWithWeights, tensorflow.keras.layers.Layer, object):
