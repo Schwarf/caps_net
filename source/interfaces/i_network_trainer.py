@@ -11,5 +11,13 @@ class INetworkTrainer(Interface):
         pass
 
     @abstractmethod
-    def set_data(self, training_data):
+    def set_loss(self, loss):
+        pass
+
+    @abstractmethod
+    def set_optimizer(self, optimizer):
+        pass
+
+    @abstractmethod
+    def set_data(self, training_input, training_labels):
         pass

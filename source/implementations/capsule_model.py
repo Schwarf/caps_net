@@ -10,7 +10,7 @@ from interfaces.i_caspule_model import ICapsuleModel
 tensorflow.keras.backend.set_image_data_format("channels_last")
 
 
-class CapsuleModel(ICapsuleModel):
+class CapsuleModel(ICapsuleModel, object):
 
     def __init__(self, input_shape, number_of_classes, number_of_routings, batch_size):
         self._input_shape = input_shape
@@ -47,26 +47,15 @@ class CapsuleModel(ICapsuleModel):
         self._decoder.add(tensorflow.keras.layers.Dense(numpy.prod(self._input_shape), activation='sigmoid'))
         self._decoder.add(tensorflow.keras.layers.Reshape(target_shape=self._input_shape, name='out_put'))
 
-    def training_model(self):
+    def get_training_and_evaluation_model(self):
         self._input = tensorflow.keras.layers.Input(shape=self._input_shape, batch_size=self._batch_size)
         self._capsule_part()
         labels = tensorflow.keras.layers.Input(shape=(self._number_of_classes,))
         mask_with_labels = self._mask_layer([self._capsule_model, labels])
-        self._decoder_part()
-        model = tensorflow.keras.models.Model([self._input, labels],
-                                              [self._capsule_model, self._decoder(mask_with_labels)])
-        return model
-
-    def evaluation_model(self):
-        self._input = tensorflow.keras.layers.Input(shape=self._input_shape, batch_size=self._batch_size)
-        self._capsule_part()
         mask_without_labels = self._mask_layer(self._capsule_model)
         self._decoder_part()
-        model = tensorflow.keras.models.Model([self._input], [self._capsule_model, self._decoder(mask_without_labels)])
-        return model
-
-    def margin_loss(self, true_label, predicted_label):
-        loss = true_label * tensorflow.square(tensorflow.maximum(0., 0.9 - predicted_label)) + \
-               0.5 * (1 - true_label) * tensorflow.square(tensorflow.maximum(0., predicted_label - 0.1))
-
-        return tensorflow.reduce_mean(tensorflow.reduce_sum(loss, 1))
+        training_model = tensorflow.keras.models.Model([self._input, labels],
+                                                       [self._capsule_model, self._decoder(mask_with_labels)])
+        evaluation_model = tensorflow.keras.models.Model([self._input],
+                                                         [self._capsule_model, self._decoder(mask_without_labels)])
+        return training_model, evaluation_model
