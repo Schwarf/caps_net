@@ -24,7 +24,10 @@ class MaskLayer(IKerasLayerWithoutWeights, tensorflow.keras.layers.Layer, object
 
 
     def compute_output_shape(self, input_shape):
-        return input_shape[:-1]
+        if type(input_shape[0]) is tuple:  # true label provided
+            return tuple([None, input_shape[0][1] * input_shape[0][2]])
+        else:  # no true label provided
+            return tuple([None, input_shape[1] * input_shape[2]])
 
     def get_config(self):
         config = super(MaskLayer, self).get_config()

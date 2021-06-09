@@ -45,7 +45,7 @@ class KerasLayerWithWeights(IKerasLayerWithWeights, tensorflow.keras.layers.Laye
 
         # check dimension again
         inputs_times_weight_matrix = tensorflow.squeeze(
-            tensorflow.map_fn(lambda x: tensorflow.matmul(self.weight_matrix, x), elems=tiled_inputs))
+            tensorflow.map_fn(lambda x: tensorflow.matmul(self._weight_matrix, x), elems=tiled_inputs))
 
         # Initialize the coupling coefficients
         coupling_coefficients = tensorflow.zeros(

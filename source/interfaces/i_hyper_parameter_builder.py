@@ -23,3 +23,7 @@ class IHyperParameterBuilder(IHyperParameters, Interface):
     @abstractmethod
     def set_scale_factor_for_reconstruction_loss(self, scale_factor_for_reconstruction_loss):
         pass
+
+    @abstractmethod
+    def set_number_of_routings(self, number_of_routings):
+        pass

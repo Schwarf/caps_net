@@ -1,20 +1,24 @@
 import numpy
 import tensorflow
 
+from pure_interface import InterfaceError
 from implementations.capsule_layer import KerasLayerWithWeights
 from implementations.length_layer import LengthLayer
 from implementations.mask_layer import MaskLayer
 from implementations.primary_capsule_layer import PrimaryCapsuleLayer
 from interfaces.i_caspule_model import ICapsuleModel
+from interfaces.i_hyper_parameters import IHyperParameters
 
-tensorflow.keras.backend.set_image_data_format("channels_last")
+
 
 
 class CapsuleModel(ICapsuleModel, object):
 
-    def __init__(self, input_shape, number_of_classes, number_of_routings, batch_size):
+    def __init__(self, input_shape, number_of_classes, hyper_parameters):
+        if not IHyperParameters.provided_by(hyper_parameters):
+            raise InterfaceError("Hyper parameters object does not derive from IHyperParameters interface.")
         self._input_shape = input_shape
-        self._batch_size = batch_size
+        self._batch_size = hyper_parameters.batch_size
         self._number_of_classes = number_of_classes
         self._decoder_activation = tensorflow.keras.activations.relu
         self._primary_capsule_layer = PrimaryCapsuleLayer(dimension_of_capsule=8,
@@ -26,7 +30,7 @@ class CapsuleModel(ICapsuleModel, object):
 
         self._digit_capsule_layer = KerasLayerWithWeights(number_of_capsules=number_of_classes,
                                                           dimension_of_capsule=16,
-                                                          number_of_routings=number_of_routings)
+                                                          number_of_routings=hyper_parameters.number_of_routings)
         self._length_layer = LengthLayer()
         self._mask_layer = MaskLayer()
         self._capsule_model = None

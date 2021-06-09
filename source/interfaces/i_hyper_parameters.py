@@ -26,3 +26,8 @@ class IHyperParameters(Interface):
     @abstractmethod
     def scale_factor_for_reconstruction_loss(self):
         pass
+
+    @property
+    @abstractmethod
+    def number_of_routings(self):
+        pass

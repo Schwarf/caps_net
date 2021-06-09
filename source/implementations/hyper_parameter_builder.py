@@ -9,6 +9,15 @@ class HyperParameterBuilder(IHyperParameterBuilder, object):
         self._learning_rate = None
         self._learning_rate_decay_factor = None
         self._scale_factor_for_reconstruction_loss = None
+        self._number_of_routings = None
+
+    @property
+    def number_of_routings(self):
+        if self._number_of_routings is None:
+            raise ValueError("Number of routings is 'None'!")
+        if self._number_of_routings < 1:
+            raise ValueError(f"Number of routings is smaller than 1: {self._number_of_routings}")
+        return self._number_of_routings
 
     @property
     def number_of_epochs(self):
@@ -66,3 +75,6 @@ class HyperParameterBuilder(IHyperParameterBuilder, object):
 
     def set_scale_factor_for_reconstruction_loss(self, scale_factor_for_reconstruction_loss):
         self._scale_factor_for_reconstruction_loss = scale_factor_for_reconstruction_loss
+
+    def set_number_of_routings(self, number_of_routings):
+        self._number_of_routings = number_of_routings

@@ -24,7 +24,7 @@ class PrimaryCapsuleLayer(IPrimaryCapsuleLayer, object):
 
     def apply(self, input):
         default_stride_size = 1
-        first_convolution = tensorflow.keras.Conv2D(filters=self._number_of_kernels,
+        first_convolution = tensorflow.keras.layers.Conv2D(filters=self._number_of_kernels,
                                                     kernel_size=self._kernel_size,
                                                     strides=default_stride_size,
                                                     padding='valid',

@@ -3,7 +3,7 @@ from pure_interface import Interface, abstractmethod
 
 class IKerasLayerWithoutWeights(Interface):
     @abstractmethod
-    def call(self, inputs, training):
+    def call(self, input, **kwargs):
         pass
 
     @abstractmethod
