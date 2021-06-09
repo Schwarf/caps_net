@@ -11,7 +11,7 @@ class INetworkTrainer(Interface):
         pass
 
     @abstractmethod
-    def set_loss(self, loss):
+    def set_losses(self, losses, loss_weights):
         pass
 
     @abstractmethod
@@ -19,5 +19,9 @@ class INetworkTrainer(Interface):
         pass
 
     @abstractmethod
-    def set_data(self, training_input, training_labels):
+    def set_training_data(self, training_input, training_labels):
+        pass
+
+    @abstractmethod
+    def set_metrics(self, metrics):
         pass
