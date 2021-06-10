@@ -7,10 +7,11 @@ from implementations.hyper_parameters import HyperParameters
 from interfaces.i_hyper_parameter_builder import IHyperParameterBuilder
 
 tensorflow.keras.backend.set_image_data_format('channels_last')
+tensorflow.executing_eagerly()
 
 learning_rate = 0.001
 number_of_epochs = 50
-batch_size = 50
+batch_size = 100
 learning_rate_decay_factor = 0.9
 scale_factor_for_reconstruction_loss = 0.392
 number_of_routings = 3

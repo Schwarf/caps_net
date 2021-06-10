@@ -22,14 +22,14 @@ class PrimaryCapsuleLayer(IPrimaryCapsuleLayer, object):
         self._activation_function = activation_function
         self._squash_activation = SquashActivation()
 
-    def apply(self, input):
+    def apply(self, input_features):
         default_stride_size = 1
         first_convolution = tensorflow.keras.layers.Conv2D(filters=self._number_of_kernels,
                                                     kernel_size=self._kernel_size,
                                                     strides=default_stride_size,
                                                     padding='valid',
                                                     activation=self._activation_function,
-                                                    name='convolution_1')(input)
+                                                    name='convolution_1')(input_features)
 
         # no activation since we use squash activation
         second_convolution = tensorflow.keras.layers.Conv2D(filters=self._number_of_kernels,

@@ -2,14 +2,12 @@ import numpy
 import tensorflow
 
 from pure_interface import InterfaceError
-from implementations.capsule_layer import KerasLayerWithWeights
+from implementations.capsule_layer import CapsuleLayer
 from implementations.length_layer import LengthLayer
 from implementations.mask_layer import MaskLayer
 from implementations.primary_capsule_layer import PrimaryCapsuleLayer
 from interfaces.i_caspule_model import ICapsuleModel
 from interfaces.i_hyper_parameters import IHyperParameters
-
-
 
 
 class CapsuleModel(ICapsuleModel, object):
@@ -28,20 +26,21 @@ class CapsuleModel(ICapsuleModel, object):
                                                           strides=2,
                                                           padding='valid')
 
-        self._digit_capsule_layer = KerasLayerWithWeights(number_of_capsules=number_of_classes,
-                                                          dimension_of_capsule=16,
-                                                          number_of_routings=hyper_parameters.number_of_routings)
+        self._digit_capsule_layer = CapsuleLayer(number_of_capsules=number_of_classes,
+                                                 dimension_of_capsule=16,
+                                                 number_of_routings=hyper_parameters.number_of_routings)
         self._length_layer = LengthLayer()
         self._mask_layer = MaskLayer()
         self._capsule_model = None
         self._decoder = None
         self._input = None
+        self._capsule_length = None
 
     def _capsule_part(self):
         primary_capsule_layer = self._primary_capsule_layer.apply(self._input)
-        digit_capsule_layer = self._digit_capsule_layer(primary_capsule_layer)
-        compute_capsules_length = self._length_layer(digit_capsule_layer)
-        self._capsule_model = compute_capsules_length
+        self._capsule_model = self._digit_capsule_layer(primary_capsule_layer)
+        compute_capsules_length = self._length_layer(self._capsule_model)
+        self._capsule_length = compute_capsules_length
 
     def _decoder_part(self):
         self._decoder = tensorflow.keras.models.Sequential(name='decoder')
@@ -50,6 +49,7 @@ class CapsuleModel(ICapsuleModel, object):
         self._decoder.add(tensorflow.keras.layers.Dense(1024, activation=self._decoder_activation))
         self._decoder.add(tensorflow.keras.layers.Dense(numpy.prod(self._input_shape), activation='sigmoid'))
         self._decoder.add(tensorflow.keras.layers.Reshape(target_shape=self._input_shape, name='out_put'))
+
 
     def get_training_and_evaluation_model(self):
         self._input = tensorflow.keras.layers.Input(shape=self._input_shape, batch_size=self._batch_size)
