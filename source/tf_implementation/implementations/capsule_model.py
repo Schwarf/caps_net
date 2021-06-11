@@ -50,7 +50,6 @@ class CapsuleModel(ICapsuleModel, object):
         self._decoder.add(tensorflow.keras.layers.Dense(numpy.prod(self._input_shape), activation='sigmoid'))
         self._decoder.add(tensorflow.keras.layers.Reshape(target_shape=self._input_shape, name='out_put'))
 
-
     def get_training_and_evaluation_model(self):
         self._input = tensorflow.keras.layers.Input(shape=self._input_shape, batch_size=self._batch_size)
         self._capsule_part()
@@ -58,8 +57,8 @@ class CapsuleModel(ICapsuleModel, object):
         mask_with_labels = self._mask_layer([self._capsule_model, labels])
         mask_without_labels = self._mask_layer(self._capsule_model)
         self._decoder_part()
-        training_model = tensorflow.keras.models.Model([self._input, labels],
-                                                       [self._capsule_model, self._decoder(mask_with_labels)])
+        training_model = tensorflow.keras.models.Model(inputs=[self._input, labels], outputs=
+                                                       [self._capsule_length, self._decoder(mask_with_labels)])
         evaluation_model = tensorflow.keras.models.Model([self._input],
-                                                         [self._capsule_model, self._decoder(mask_without_labels)])
+                                                         [self._capsule_length, self._decoder(mask_without_labels)])
         return training_model, evaluation_model

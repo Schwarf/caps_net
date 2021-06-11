@@ -23,5 +23,9 @@ class INetworkTrainer(Interface):
         pass
 
     @abstractmethod
+    def set_validation_data(self, validation_input, validation_labels):
+        pass
+
+    @abstractmethod
     def set_metrics(self, metrics):
         pass

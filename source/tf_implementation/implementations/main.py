@@ -40,15 +40,18 @@ input_shape = (28, 28, 1)
 capsule_model = CapsuleModel(input_shape=input_shape, number_of_classes=number_of_classes,
                              hyper_parameters=hyper_parameters)
 training_model, evaluation_model = capsule_model.get_training_and_evaluation_model()
+training_model.summary()
 mnist_data = MNISTData()
 preprocessor = MNISTPreprocessing()
 mnist_data = preprocessor.apply(mnist_data=mnist_data)
 losses = [tensorflow.keras.losses.mean_squared_error, margin_loss]
 loss_weights = [1.0, hyper_parameters.scale_factor_for_reconstruction_loss]
-
+metrics = {"tf_caps_net": tensorflow.keras.metrics.Accuracy}
+optimizer = tensorflow.keras.optimizers.Adam(learning_rate=hyper_parameters.learning_rate)
 trainer.set_model(training_model)
 trainer.set_training_data(mnist_data.training_input, mnist_data.training_labels)
 trainer.set_losses(losses=losses, loss_weights=loss_weights)
-
-
+trainer.set_metrics(metrics)
+trainer.set_optimizer(optimizer=optimizer)
+trainer.train()
 
