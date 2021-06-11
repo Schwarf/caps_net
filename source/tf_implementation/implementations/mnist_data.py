@@ -1,4 +1,4 @@
-from interfaces.i_mnist_data import IMNISTData
+from tf_implementation.interfaces.i_mnist_data import IMNISTData
 
 
 class MNISTData(IMNISTData, object):

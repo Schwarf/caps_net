@@ -2,12 +2,12 @@ import numpy
 import tensorflow
 
 from pure_interface import InterfaceError
-from implementations.capsule_layer import CapsuleLayer
-from implementations.length_layer import LengthLayer
-from implementations.mask_layer import MaskLayer
-from implementations.primary_capsule_layer import PrimaryCapsuleLayer
-from interfaces.i_caspule_model import ICapsuleModel
-from interfaces.i_hyper_parameters import IHyperParameters
+from tf_implementation.implementations.capsule_layer import CapsuleLayer
+from tf_implementation.implementations.length_layer import LengthLayer
+from tf_implementation.implementations.mask_layer import MaskLayer
+from tf_implementation.implementations.primary_capsule_layer import PrimaryCapsuleLayer
+from tf_implementation.interfaces.i_caspule_model import ICapsuleModel
+from tf_implementation.interfaces.i_hyper_parameters import IHyperParameters
 
 
 class CapsuleModel(ICapsuleModel, object):

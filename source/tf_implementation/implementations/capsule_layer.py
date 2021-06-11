@@ -1,7 +1,7 @@
 import tensorflow
 
-from interfaces.i_layer_with_weights import IKerasLayerWithWeights
-from implementations.squash_activation import SquashActivation
+from tf_implementation.interfaces.i_layer_with_weights import IKerasLayerWithWeights
+from tf_implementation.implementations.squash_activation import SquashActivation
 
 
 class CapsuleLayer(IKerasLayerWithWeights, tensorflow.keras.layers.Layer, object):

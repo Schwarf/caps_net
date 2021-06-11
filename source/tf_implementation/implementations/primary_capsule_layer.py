@@ -1,7 +1,7 @@
 import tensorflow
 
-from interfaces.i_primary_capsule_layer import IPrimaryCapsuleLayer
-from implementations.squash_activation import SquashActivation
+from tf_implementation.interfaces.i_primary_capsule_layer import IPrimaryCapsuleLayer
+from tf_implementation.implementations.squash_activation import SquashActivation
 
 
 class PrimaryCapsuleLayer(IPrimaryCapsuleLayer, object):

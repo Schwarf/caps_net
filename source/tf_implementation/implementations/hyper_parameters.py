@@ -1,7 +1,7 @@
 from pure_interface import InterfaceError
 
-from source.interfaces.i_hyper_parameters import IHyperParameters
-from source.interfaces.i_hyper_parameter_builder import IHyperParameterBuilder
+from tf_implementation.interfaces.i_hyper_parameters import IHyperParameters
+from tf_implementation.interfaces.i_hyper_parameter_builder import IHyperParameterBuilder
 
 
 class HyperParameters(IHyperParameters, object):

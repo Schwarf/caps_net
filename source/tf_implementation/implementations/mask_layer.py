@@ -1,6 +1,6 @@
 import tensorflow
 
-from interfaces.i_layer_without_weights import IKerasLayerWithoutWeights
+from tf_implementation.interfaces.i_layer_without_weights import IKerasLayerWithoutWeights
 
 
 class MaskLayer(IKerasLayerWithoutWeights, tensorflow.keras.layers.Layer, object):

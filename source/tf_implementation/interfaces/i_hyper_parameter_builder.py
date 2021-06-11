@@ -1,6 +1,6 @@
 from pure_interface import Interface, abstractmethod
 
-from interfaces.i_hyper_parameters import IHyperParameters
+from tf_implementation.interfaces.i_hyper_parameters import IHyperParameters
 
 
 class IHyperParameterBuilder(IHyperParameters, Interface):

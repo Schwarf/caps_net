@@ -1,7 +1,7 @@
 import tensorflow
 
-from interfaces.i_mnist_data import IMNISTData
-from interfaces.i_mnist_preprocessing import IMNISTPreprocessing
+from tf_implementation.interfaces.i_mnist_data import IMNISTData
+from tf_implementation.interfaces.i_mnist_preprocessing import IMNISTPreprocessing
 
 
 class MNISTPreprocessing(IMNISTPreprocessing, object):

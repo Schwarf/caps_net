@@ -1,15 +1,8 @@
 import tensorflow
 from pure_interface import InterfaceError
 
-from interfaces.i_hyper_parameters import IHyperParameters
-from interfaces.i_network_trainer import INetworkTrainer
-
-
-def margin_loss(true_label, predicted_label):
-    loss = true_label * tensorflow.square(tensorflow.maximum(0., 0.9 - predicted_label)) + \
-           0.5 * (1 - true_label) * tensorflow.square(tensorflow.maximum(0., predicted_label - 0.1))
-
-    return tensorflow.reduce_mean(tensorflow.reduce_sum(loss, 1))
+from tf_implementation.interfaces.i_hyper_parameters import IHyperParameters
+from tf_implementation.interfaces.i_network_trainer import INetworkTrainer
 
 
 class CapsuleNetworkTrainer(INetworkTrainer, object):

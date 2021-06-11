@@ -1,5 +1,4 @@
-from pure_interface import adapts
-from interfaces.i_hyper_parameter_builder import IHyperParameterBuilder
+from tf_implementation.interfaces.i_hyper_parameter_builder import IHyperParameterBuilder
 
 
 class HyperParameterBuilder(IHyperParameterBuilder, object):
