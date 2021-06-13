@@ -38,7 +38,7 @@ class CapsuleLayer(IKerasLayerWithWeights, tensorflow.keras.layers.Layer, object
         # to [None, 1, number_of_input_capsules, dimension_of_input_capsules, 1]
         expanded_input_features = tensorflow.expand_dims(tensorflow.expand_dims(input_features, 1), -1)
 
-        # Copy the input matrix along the 2nd dimension number_of_capsules x times to simplify the
+        # Copy the input matrix along the 2nd dimension number_of_capsules 'x' times to simplify the
         # multiplication with the weight_matrix.
         # tiled_input_features shape is [None, number_of_capsules, number_of_input_capsules, dimension_of_input_capsules, 1]
         tiled_input_features = tensorflow.tile(expanded_input_features, [1, self._number_of_capsules, 1, 1, 1])

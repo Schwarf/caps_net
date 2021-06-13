@@ -23,7 +23,7 @@ class CapsuleModel(ICapsuleModel, object):
                                                           number_of_channels=32,
                                                           kernel_size=9,
                                                           activation_function=tensorflow.keras.activations.relu,
-                                                          strides=2,
+                                                          stride_size=2,
                                                           padding='valid')
 
         self._digit_capsule_layer = CapsuleLayer(number_of_capsules=number_of_classes,
