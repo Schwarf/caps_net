@@ -1,7 +1,7 @@
 import tensorflow
 
 
-class SquashActivation():
+class SquashActivation:
     def __init__(self, squash_axis=-1):
         self._squash_axis = squash_axis
 

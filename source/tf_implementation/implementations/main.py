@@ -50,6 +50,7 @@ metrics = {"tf_caps_net": tensorflow.keras.metrics.Accuracy}
 optimizer = tensorflow.keras.optimizers.Adam(learning_rate=hyper_parameters.learning_rate)
 trainer.set_model(training_model)
 trainer.set_training_data(mnist_data.training_input, mnist_data.training_labels)
+trainer.set_validation_data(mnist_data.test_input, mnist_data.test_labels)
 trainer.set_losses(losses=losses, loss_weights=loss_weights)
 trainer.set_metrics(metrics)
 trainer.set_optimizer(optimizer=optimizer)

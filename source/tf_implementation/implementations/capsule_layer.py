@@ -52,11 +52,11 @@ class CapsuleLayer(IKerasLayerWithWeights, tensorflow.keras.layers.Layer, object
             shape=[batch_size, self._number_of_capsules, 1, self._number_of_input_capsules])
 
         output_vectors = None
-        for round in range(self._number_of_routings):
+        for routing_round in range(self._number_of_routings):
             softmax_activation_primary_capsule = tensorflow.nn.softmax(coupling_coefficients, axis=1)
             output_vectors = self._squash_activation.apply(
                 tensorflow.matmul(softmax_activation_primary_capsule, input_features_times_weight_matrix))  # [None, 10, 1, 16]
-            if round < self._number_of_routings - 1:
+            if routing_round < self._number_of_routings - 1:
                 # update couplings
                 coupling_coefficients += tensorflow.matmul(output_vectors, input_features_times_weight_matrix, transpose_b=True)
 

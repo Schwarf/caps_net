@@ -1,5 +1,6 @@
 # Byte-compiled / optimized / DLL files
 environment_caps_net/
+capsule_network_environment/
 source/result/
 .idea/
 __pycache__/

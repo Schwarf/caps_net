@@ -36,9 +36,6 @@ class CapsuleNetworkTrainer(INetworkTrainer, object):
         self._training_labels = training_labels
 
 #    def _get_training_and_validation_batch(self):
-
-
-
     def train(self):
         self._model.compile(
             optimizer=self._optimizer,
